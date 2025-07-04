@@ -10,9 +10,9 @@ function App() {
     <Router>
       <Routes>
     
-            <Route path="/" element = {<CityList />}/>
+        <Route path="/" element = {<CityList />}/>
             
-            <Route path="/forecast/:city" element = {<CityForecast />}/>
+        <Route path="/forecast/:city" element = {<CityForecast />}/>
 
       </Routes>
     </Router>

@@ -4,12 +4,11 @@ const CityList = () => {
     const cities = ["NewYork", "London", "Tokyo"];
   
   return (
-    <div>
+    <div >
       <h1>Select a City</h1>
       <ul>
         {cities.map((city) => (
           <li key={city}>
-            {/* {city} */}
             <Link to={`/forecast/${city}`}>{city}</Link>
           </li>
         ))}

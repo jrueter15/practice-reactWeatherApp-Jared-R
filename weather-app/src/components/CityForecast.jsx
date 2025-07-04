@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+
 
 const CityForecast = () => {
     const weatherData = {
@@ -17,23 +18,47 @@ const CityForecast = () => {
     },
 };
     
-    const { cityName } = useParams();
-    const [forecast, setForecast] = useState("");
-    const ref = useRef();
+    const { city } = useParams();
+    const [forecast, setForecast] = useState(null);
+    const detailsRef = useRef();
 
     useEffect(() => {
-        if (weatherData[cityName]) {
-            setForecast(weatherData[cityName]);
+        if (weatherData[city]) {
+            setForecast(weatherData[city]);
         } else {
             setForecast("");
         }
-    }, [cityName]);
+    }, [city]);
+
+    const handleScroll = () => {
+        if (detailsRef.current) {
+            detailsRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+        };
   
     return (
-    <div>
+        <div>
+            <h1>Forecast for {city}</h1>
 
-    </div>
-  )
+            {forecast ? (
+                <>
+                    <h2>{forecast.summary}</h2>
+                    <button onClick={handleScroll}>View Details</button>
+
+                    <div ref={detailsRef} className="details-section">
+                        <h3>Details:</h3>
+                        <p>{forecast.details}</p>
+                    </div>
+                </>
+
+            ) : (
+                <p>City not found. Please go back and try again.</p>
+            )}
+
+            <br />
+            <Link to="/">← Back to City List</Link>
+        </div>
+  );
 }
 
 export default CityForecast
